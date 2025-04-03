@@ -6,11 +6,30 @@
         Don't have an account ?
         <a href="#">Create an IBMid</a>
       </p>
-      <cds-text-label>
-        IBMid
-        <a href="#">Forgot ID?</a>
-        <input cdsText type="text" class="input-field" placeholder="username@@ibm.com" />
-      </cds-text-label>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <cds-text-label [invalid]="isEmailInvalid" [invalidText]="emailInvalidText">
+          IBMid
+          <a href="#">Forgot ID?</a>
+          <input
+            cdsText
+            type="text"
+            class="input-field"
+            placeholder="username@ibm.com"
+            formControlName="email"
+          />
+        </cds-text-label>
+        <br />
+        <cds-text-label [invalid]="isPasswordInvalid" [invalidText]="passwordInvalidText">
+          Password
+          <input
+            cdsText
+            type="password"
+            class="input-field"
+            placeholder="Password"
+            formControlName="password"
+          />
+        </cds-text-label>
+      </form>
       <fieldset class="cds--fieldset">
         <legend class="cds--label"></legend>
         <cds-checkbox
@@ -28,7 +47,7 @@
         <button cdsButton="ghost" [size]="'xl'" [isExpressive]="false">
           Loggin with Softlayer
         </button>
-        <button cdsButton [size]="'xl'" [isExpressive]="false">
+        <button cdsButton [size]="'xl'" [isExpressive]="false" [disabled]="loginForm.invalid">
           Log In
           <ng-icon name="radixArrowRight" class="cds--btn__icon" size="16"></ng-icon>
         </button>
