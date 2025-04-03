@@ -1,0 +1,1 @@
+# Chứa các thành phần dùng chung (pipes, directives, models)
