@@ -1,36 +1,42 @@
-<div class="main-container">
-  <div class="head-title">
-    <h1>{{ header }}</h1>
-    <p class="detail">
-      Don't have an account ?
-      <a href="#">Create an IBMid</a>
-    </p>
-    <cds-text-label>
-      IBMid
-      <a href="#">Forgot ID?</a>
-      <input cdsText type="text" class="input-field" placeholder="username@@ibm.com" />
-    </cds-text-label>
-    <fieldset class="cds--fieldset">
-      <legend class="cds--label"></legend>
-      <cds-checkbox
-        [disabled]="false"
-        [indeterminate]="true"
-        [checked]="false"
-        (checkedChange)="onChange($event)"
-        [hideLabel]="false"
-        (indeterminateChange)="onIndeterminateChange($event)"
-      >
-        {{ label }}
-      </cds-checkbox>
-    </fieldset>
-    <cds-button-set>
-      <button cdsButton="ghost" [size]="'lg'" [isExpressive]="false">Loggin with Softlayer</button>
-      <button cdsButton [size]="'lg'" [isExpressive]="false">Button</button>
-    </cds-button-set>
-  </div>
-  <div class="bottom-title">
-    Need help ?
-    <a href="#">Contact the IBM help desk</a>
+<div class="login">
+  <div class="main-container">
+    <div class="head-title">
+      <h1>{{ header }}</h1>
+      <p class="detail">
+        Don't have an account ?
+        <a href="#">Create an IBMid</a>
+      </p>
+      <cds-text-label>
+        IBMid
+        <a href="#">Forgot ID?</a>
+        <input cdsText type="text" class="input-field" placeholder="username@@ibm.com" />
+      </cds-text-label>
+      <fieldset class="cds--fieldset">
+        <legend class="cds--label"></legend>
+        <cds-checkbox
+          [disabled]="false"
+          [indeterminate]="false"
+          [checked]="false"
+          (checkedChange)="onChange($event)"
+          [hideLabel]="false"
+          (indeterminateChange)="onIndeterminateChange($event)"
+        >
+          {{ label }}
+        </cds-checkbox>
+      </fieldset>
+      <cds-button-set>
+        <button cdsButton="ghost" [size]="'xl'" [isExpressive]="false">
+          Loggin with Softlayer
+        </button>
+        <button cdsButton [size]="'xl'" [isExpressive]="false">
+          Log In
+          <ng-icon name="radixArrowRight" class="cds--btn__icon" size="16"></ng-icon>
+        </button>
+      </cds-button-set>
+    </div>
+    <div class="bottom-title">
+      Need help ?
+      <a href="#">Contact the IBM help desk</a>
+    </div>
   </div>
 </div>
-0

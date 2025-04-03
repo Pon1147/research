@@ -1,9 +1,21 @@
+.login {
+  background-image: url('../../../assets/images/background.jpg'); // Đường dẫn đến hình ảnh
+  background-size: cover; // Đảm bảo hình ảnh phủ kín phần tử
+  background-position: center; // Căn giữa hình ảnh
+  background-repeat: no-repeat; // Không lặp lại hình ảnh
+  height: 100vh; // Full height of the viewport
+  overflow: hidden; // Prevent scrollbars if content overflows
+}
 .main-container {
-  padding: 0 20px;
+  padding: 20px 20px;
   margin: 0 auto;
   justify-content: center;
   width: 600px;
   padding-top: 200px;
+}
+.head-title {
+  padding-top: 20px;
+  background-color: white;
 }
 
 h1 {
@@ -20,10 +32,10 @@ h1 {
 }
 
 .bottom-title {
-  padding: 0 20px;
+  padding: 20px 20px;
 }
 ::ng-deep .cds--fieldset {
-  padding: 10px 0 30px 0;
+  padding: 10px 0 50px 0;
 }
 ::ng-deep .cds--label {
   width: 100%;
@@ -35,9 +47,9 @@ h1 {
 ::ng-deep .cds--form-item {
   padding: 0 20px !important;
 }
-::ng-deep .cds--btn-set {
-  padding: 0 20px;
-}
+// ::ng-deep .cds--btn-set {
+//   padding: 0 20px;
+// }
 ::ng-deep .cds--btn-set .cds--btn {
   flex: 1 1 50%;
   inline-size: none;
