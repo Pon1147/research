@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
-  PaginationModule ,
+  PaginationModule,
   ButtonModule,
   InputModule,
   GridModule,
@@ -28,7 +28,7 @@ import {
 // import { AppCdsIconService } from './services/cds-icon-service';
 @NgModule({
   imports: [
-    PaginationModule ,
+    PaginationModule,
     ModalModule,
     CommonModule,
     ButtonModule,
@@ -54,7 +54,7 @@ import {
     // Add other common import modules hereFormsModule
   ],
   exports: [
-    PaginationModule ,
+    PaginationModule,
     ModalModule,
     CommonModule,
     ReactiveFormsModule,

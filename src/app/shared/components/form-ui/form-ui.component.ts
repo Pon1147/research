@@ -12,6 +12,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { emailValidator, passwordValidator } from '../../validator/form-validator';
+import { NotificationService } from '../../services/inline-notification.services';
 
 @Component({
   selector: 'app-form-ui',
@@ -24,6 +25,8 @@ export class FormUiComponent implements OnInit, OnChanges {
   // Nơi khai báo các biến
   header = 'Log In';
   label = 'Rembmer ID';
+  notification: any = null;
+
   users: User[] = [
     {
       id: 1,
@@ -39,6 +42,28 @@ export class FormUiComponent implements OnInit, OnChanges {
 
   loginForm!: FormGroup;
   disabled = true;
+
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly router: Router,
+    private readonly notificationService: NotificationService
+  ) {}
+
+  ngOnInit(): void {
+    this.loginForm = this.fb.group({
+      email: ['user@ibm.com', [Validators.required, emailValidator()]],
+      password: ['123456789Aa@.', [Validators.required, passwordValidator()]],
+    });
+    this.loginForm.statusChanges.subscribe(status => {
+      this.disabled = status === 'INVALID';
+    });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Remove throw error if not needed
+    console.log('Changes:', changes);
+  }
+
   get email(): AbstractControl | null {
     return this.loginForm.get('email');
   }
@@ -89,47 +114,60 @@ export class FormUiComponent implements OnInit, OnChanges {
     return '';
   }
 
-  constructor(
-    private fb: FormBuilder,
-    private router: Router
-  ) {}
 
-  ngOnInit(): void {
-    this.loginForm = this.fb.group({
-      email: ['admin@ibm.com', [Validators.required, emailValidator()]],
-      password: ['123456789Aa@.', [Validators.required, passwordValidator()]],
-    });
-    this.loginForm.statusChanges.subscribe(status => {
-      this.disabled = status === 'INVALID';
-    });
-  }
   onSubmit(): void {
-    if (this.loginForm.valid) {
+    if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       console.log('Form is invalid. Please check the errors.');
-      console.log('Email is invalid. Please check the', this.email?.value);
-      console.log('Password is invalid. Please check the', this.password?.value);
+      console.log('Email:', this.email?.value);
+      console.log('Password:', this.password?.value);
+      this.notificationService.showNotification({
+        type: 'error',
+        title: 'Đăng nhập thất bại',
+        message: 'Vui lòng kiểm tra email hoặc mật khẩu.',
+        showClose: true,
+        lowContrast: false,
+      });
     } else {
       const matchingUser = this.users.find(
         (user: { email: any; password: any }) =>
           user.email === this.email?.value && user.password === this.password?.value
       );
       if (matchingUser) {
-        console.log('Welcom Back Admin User: ', matchingUser.email);
+        console.log('Welcome Back Admin User:', matchingUser.email);
+        localStorage.setItem('user', matchingUser.email);
+        this.notificationService.showNotification({
+          type: 'success',
+          title: 'Đăng nhập thành công',
+          message: 'Chào mừng bạn đến với hệ thống!',
+          showClose: false,
+          lowContrast: true,
+        });
         this.router.navigate(['/home']);
       } else {
-        console.log('You log in with Email: ' + this.email?.value);
+        // Gọi showNotification nhiều lần để minh họa hàng đợi
+        this.notificationService.showNotification({
+          type: 'error',
+          title: 'Đăng nhập thất bại',
+          message: 'Email hoặc mật khẩu không đúng. Vui lòng thử lại.',
+          showClose: true,
+          lowContrast: false,
+        });
+        this.notificationService.showNotification({
+          type: 'info',
+          title: 'Gợi ý',
+          message: 'Kiểm tra lại email của bạn!',
+          showClose: true,
+          lowContrast: false,
+        });
       }
     }
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    throw new Error('Method not implemented.');
-  }
   onIndeterminateChange($event: boolean) {
-    throw new Error('Method not implemented.');
+    console.log('Indeterminate Change:', $event);
   }
   onChange($event: boolean) {
-    throw new Error('Method not implemented.');
+    console.log('Checkbox Change:', $event);
   }
 }
